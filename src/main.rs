@@ -40,7 +40,7 @@ pub struct Solution {
 }
 
 fn main() {
-    let mut paths: Vec<String> = vec![
+    let paths: Vec<String> = vec![
         "data/a.txt".to_string(),
         "data/b.txt".to_string(),
         "data/c.txt".to_string(),
