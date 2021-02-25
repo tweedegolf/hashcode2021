@@ -1,0 +1,8 @@
+[package]
+name = "hashcode2021"
+version = "0.1.0"
+authors = ["Marlon Baeten <marlon@tweedegolf.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.8.3"
