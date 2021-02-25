@@ -1,6 +1,7 @@
 mod read_problem;
 mod write_solution;
 mod baseline;
+mod ignore_unused;
 
 #[derive(Debug)]
 pub struct Street {
@@ -43,5 +44,5 @@ fn main() {
 
     let problem = read_problem::read_problem(contents, name);
     println!("{:?}", problem);
-    println!("{:?}", baseline::solve(&problem));
+    println!("{:?}", ignore_unused::solve(&problem));
 }
