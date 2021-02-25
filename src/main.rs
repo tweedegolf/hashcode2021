@@ -3,6 +3,7 @@ mod write_solution;
 mod baseline;
 mod ignore_unused;
 mod score;
+mod random;
 
 #[derive(Debug)]
 pub struct Street {
@@ -39,7 +40,7 @@ pub struct Solution {
 }
 
 fn main() {
-    let mut paths: Vec<String> = vec![
+    let paths: Vec<String> = vec![
         "data/a.txt".to_string(),
         "data/b.txt".to_string(),
         "data/c.txt".to_string(),
@@ -59,5 +60,6 @@ fn main() {
         println!("Problem '{}': {}", problem.name, score);
         write_solution::write_solution(&problem, &solution);
     }
+
     println!("Total score: {}", total_score);
 }

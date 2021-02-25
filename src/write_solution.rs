@@ -19,7 +19,7 @@ pub fn write_solution(problem: &Problem, solution: &Solution) {
             write!(out_file, "{}\n", intersection).unwrap();
             write!(out_file, "{}\n", lps.len()).unwrap();
             for lp in lps.iter() {
-                write!(out_file, "{} {}\n", &problem.streets[lp.street as usize].name, lp.period).unwrap();
+                write!(out_file, "{} {}\n", &problem.streets[lp.street].name, lp.period).unwrap();
             }
         }
     }
