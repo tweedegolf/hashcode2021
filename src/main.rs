@@ -5,31 +5,31 @@ mod ignore_unused;
 
 #[derive(Debug)]
 pub struct Street {
-    b: isize,
-    e: isize,
+    b: usize,
+    e: usize,
     name: String,
-    l: isize,
+    l: usize,
 }
 
 #[derive(Debug)]
 pub struct Car {
-    route: Vec<isize>
+    route: Vec<usize>
 }
 
 #[derive(Debug)]
 pub struct Problem {
     name: String,
-    d: isize,
-    i: isize,
-    f: isize,
+    d: usize,
+    i: usize,
+    f: usize,
     streets: Vec<Street>,
     cars: Vec<Car>,
 }
 
 #[derive(Debug)]
 pub struct LightPeriod {
-    street: isize,
-    period: isize,
+    street: usize,
+    period: usize,
 }
 
 #[derive(Debug)]
