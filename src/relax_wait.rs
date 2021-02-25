@@ -103,7 +103,7 @@ pub fn score(problem: &Problem, solution: &Solution) -> (usize, usize, usize) {
     (score, max_queue_delay, max_queue_spot)
 }
 
-pub fn improve (problem: &Problem, mut solution: Solution, mut iters: isize) -> Solution {
+pub fn improve (problem: &Problem, mut solution: Solution) -> Solution {
     let mut best_sol = solution.clone();
     let (mut best_score, mut max_delay, mut max_spot) = score(problem, &solution);
 
@@ -114,18 +114,18 @@ pub fn improve (problem: &Problem, mut solution: Solution, mut iters: isize) -> 
         }
     }
 
-    while max_delay > 0 && iters > 0{
+    while max_delay > 0 {
         let (int, per) = street_loc[&max_spot];
         solution.schedules[int][per].period += 1;
         let temp = score(problem, &solution);
-        println!("Cur score: {}", temp.0);
         if temp.0 > best_score {
             best_score = temp.0;
             best_sol = solution.clone();
+            println!("Cur score: {}", temp.0);
+            write_solution::write_solution(&problem, &solution);
         }
         max_delay = temp.1;
         max_spot = temp.2;
-        iters -= 1;
     }
 
     best_sol

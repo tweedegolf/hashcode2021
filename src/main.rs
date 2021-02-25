@@ -56,10 +56,10 @@ fn main() {
     for name in paths.iter() {
         let contents = std::fs::read_to_string(&name).unwrap();
         let problem = read_problem::read_problem(contents, name.clone());
-        //let solution = street_count::solve(&problem);
+        let solution = street_count::solve(&problem);
         //let score = relax_wait::score(&problem, &solution);
-        let solution = ignore_unused::solve(&problem);
-        let solution = relax_wait::improve(&problem, solution, 50);
+        //let solution = ignore_unused::solve(&problem);
+        let solution = relax_wait::improve(&problem, solution);
         let score = relax_wait::score(&problem, &solution).0;
         total_score += score;
         println!("Problem '{}': {}", problem.name, score);
