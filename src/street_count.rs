@@ -23,24 +23,24 @@ pub fn solve(problem: &Problem) -> Solution {
         }
     }
 
-    let mut used_streets: HashSet<usize> = HashSet::new();
+    let mut streets = vec![];
     for car in problem.cars.iter() {
         for seg in car.route.iter() {
-            used_streets.insert(*seg);
+            if !streets.contains(seg) {
+                streets.push(*seg);
+            }
         }
     }
 
-    let streets = used_streets.iter().choose_multiple(&mut rng, used_streets.len());
-
     for i in streets {
         let mut period = 1;
-        let popularity = traffic[*i] as f64 / most_popular as f64;
+        let popularity = traffic[i] as f64 / most_popular as f64;
 
-        if popularity > 0.1 {
+        if popularity > 0.15 {
             period = 2;
         }
 
-        if popularity > 0.25 {
+        if popularity > 0.35 {
             period = 3;
         }
 
@@ -48,13 +48,13 @@ pub fn solve(problem: &Problem) -> Solution {
             period = 4;
         }
 
-        if popularity > 0.75 {
+        if popularity > 0.9 {
             period = 5;
         }
 
         if period > 0 {
-            sol.schedules[problem.streets[*i].e].push(LightPeriod{
-                street: *i,
+            sol.schedules[problem.streets[i].e].push(LightPeriod{
+                street: i,
                 period,
             });
         }
