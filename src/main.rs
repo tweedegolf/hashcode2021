@@ -7,7 +7,7 @@ mod random;
 mod street_count;
 mod relax_wait;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Street {
     b: usize,
     e: usize,
@@ -15,12 +15,12 @@ pub struct Street {
     l: usize,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Car {
     route: Vec<usize>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Problem {
     name: String,
     d: usize,
@@ -30,13 +30,13 @@ pub struct Problem {
     cars: Vec<Car>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct LightPeriod {
     street: usize,
     period: usize,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Solution {
     schedules: Vec<Vec<LightPeriod>>,
 }
@@ -56,8 +56,11 @@ fn main() {
     for name in paths.iter() {
         let contents = std::fs::read_to_string(&name).unwrap();
         let problem = read_problem::read_problem(contents, name.clone());
-        let solution = street_count::solve(&problem);
-        let score = relax_wait::score(&problem, &solution);
+        //let solution = street_count::solve(&problem);
+        //let score = relax_wait::score(&problem, &solution);
+        let solution = ignore_unused::solve(&problem);
+        let solution = relax_wait::improve(&problem, solution, 50);
+        let score = relax_wait::score(&problem, &solution).0;
         total_score += score;
         println!("Problem '{}': {}", problem.name, score);
         write_solution::write_solution(&problem, &solution);

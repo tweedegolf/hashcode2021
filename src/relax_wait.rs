@@ -1,4 +1,4 @@
-use std::collections::BinaryHeap;
+use std::collections::{BinaryHeap, HashMap};
 
 use super::*;
 
@@ -49,7 +49,7 @@ fn next_green(intersection: &Vec<LightPeriod>, street: usize, t: usize) -> usize
     }
 }
 
-pub fn score(problem: &Problem, solution: &Solution) -> usize {
+pub fn score(problem: &Problem, solution: &Solution) -> (usize, usize, usize) {
     let mut next_slot: Vec<usize> = Vec::new();
     next_slot.resize(problem.streets.len(), 0);
 
@@ -100,5 +100,33 @@ pub fn score(problem: &Problem, solution: &Solution) -> usize {
         }
     }
 
-    score
+    (score, max_queue_delay, max_queue_spot)
+}
+
+pub fn improve (problem: &Problem, mut solution: Solution, mut iters: isize) -> Solution {
+    let mut best_sol = solution.clone();
+    let (mut best_score, mut max_delay, mut max_spot) = score(problem, &solution);
+
+    let mut street_loc: HashMap<usize, (usize, usize)> = HashMap::new(); 
+    for (i, sched) in solution.schedules.iter().enumerate() {
+        for (j, period) in sched.iter().enumerate() {
+            street_loc.insert(period.street, (i,j));
+        }
+    }
+
+    while max_delay > 0 && iters > 0{
+        let (int, per) = street_loc[&max_spot];
+        solution.schedules[int][per].period += 1;
+        let temp = score(problem, &solution);
+        println!("Cur score: {}", temp.0);
+        if temp.0 > best_score {
+            best_score = temp.0;
+            best_sol = solution.clone();
+        }
+        max_delay = temp.1;
+        max_spot = temp.2;
+        iters -= 1;
+    }
+
+    best_sol
 }
