@@ -4,6 +4,7 @@ mod baseline;
 mod ignore_unused;
 mod score;
 mod random;
+mod street_count;
 
 #[derive(Debug)]
 pub struct Street {
@@ -54,12 +55,12 @@ fn main() {
     for name in paths.iter() {
         let contents = std::fs::read_to_string(&name).unwrap();
         let problem = read_problem::read_problem(contents, name.clone());
-        let solution = ignore_unused::solve(&problem);
-        let score = score::score(&problem, &solution);
-        total_score += score;
-        println!("Problem '{}': {}", problem.name, score);
+        let solution = street_count::solve(&problem);
+        // let score = score::score(&problem, &solution);
+        // total_score += score;
+        // println!("Problem '{}': {}", problem.name, score);
         write_solution::write_solution(&problem, &solution);
     }
 
-    println!("Total score: {}", total_score);
+    // println!("Total score: {}", total_score);
 }
