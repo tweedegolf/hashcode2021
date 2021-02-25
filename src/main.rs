@@ -2,6 +2,7 @@ mod read_problem;
 mod write_solution;
 mod baseline;
 mod ignore_unused;
+mod random;
 
 #[derive(Debug)]
 pub struct Street {
