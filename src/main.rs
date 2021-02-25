@@ -1,4 +1,5 @@
 mod read_problem;
+mod write_solution;
 
 #[derive(Debug)]
 pub struct Street {
@@ -15,6 +16,7 @@ pub struct Car {
 
 #[derive(Debug)]
 pub struct Problem {
+    name: String,
     d: isize,
     i: isize,
     f: isize,
@@ -35,7 +37,9 @@ pub struct Solution {
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let contents = std::fs::read_to_string(&args[1]).unwrap();
+    let name = args[1].clone();
+    let contents = std::fs::read_to_string(&name).unwrap();
 
-    println!("{:?}", read_problem::read_problem(contents));
+    println!("{:?}", read_problem::read_problem(contents, name));
 }
+

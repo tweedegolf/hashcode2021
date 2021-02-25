@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use super::*;
 
-pub fn read_problem(content: String) -> Problem {
+pub fn read_problem(content: String, name: String) -> Problem {
     let mut lines = content.lines();
     let mut curline = lines.next().unwrap().split(" ");
 
@@ -39,5 +39,5 @@ pub fn read_problem(content: String) -> Problem {
         cars.push(Car{route});
     }
 
-    Problem{d,i,f,streets,cars}
+    Problem{name,d,i,f,streets,cars}
 }
