@@ -1,4 +1,5 @@
 mod read_problem;
+mod baseline;
 
 #[derive(Debug)]
 pub struct Street {
@@ -37,5 +38,7 @@ fn main() {
     let args: Vec<String> = std::env::args().collect();
     let contents = std::fs::read_to_string(&args[1]).unwrap();
 
-    println!("{:?}", read_problem::read_problem(contents));
+    let problem = read_problem::read_problem(contents);
+    println!("{:?}", problem);
+    println!("{:?}", baseline::solve(&problem));
 }
