@@ -1,5 +1,6 @@
 mod read_problem;
 mod write_solution;
+mod baseline;
 
 #[derive(Debug)]
 pub struct Street {
@@ -40,6 +41,7 @@ fn main() {
     let name = args[1].clone();
     let contents = std::fs::read_to_string(&name).unwrap();
 
-    println!("{:?}", read_problem::read_problem(contents, name));
+    let problem = read_problem::read_problem(contents, name);
+    println!("{:?}", problem);
+    println!("{:?}", baseline::solve(&problem));
 }
-
