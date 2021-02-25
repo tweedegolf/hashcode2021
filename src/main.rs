@@ -38,11 +38,19 @@ pub struct Solution {
 }
 
 fn main() {
-    let args: Vec<String> = std::env::args().collect();
-    let name = args[1].clone();
-    let contents = std::fs::read_to_string(&name).unwrap();
+    let mut paths: Vec<String> = vec![
+        "data/a.txt".to_string(),
+        "data/b.txt".to_string(),
+        "data/c.txt".to_string(),
+        "data/d.txt".to_string(),
+        "data/e.txt".to_string(),
+        "data/f.txt".to_string(),
+    ];
 
-    let problem = read_problem::read_problem(contents, name);
-    println!("{:?}", problem);
-    println!("{:?}", ignore_unused::solve(&problem));
+    for name in paths.iter() {
+        let contents = std::fs::read_to_string(&name).unwrap();
+        let problem = read_problem::read_problem(contents, name.clone());
+        let solution = ignore_unused::solve(&problem);
+        write_solution::write_solution(&problem, &solution);
+    }
 }

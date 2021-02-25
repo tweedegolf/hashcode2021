@@ -6,12 +6,21 @@ pub fn write_solution(problem: &Problem, solution: &Solution) {
     let path = problem.name.clone().replace("data", "out").replace(".txt", "_solution.txt");
     let mut out_file = std::fs::File::create(path).unwrap();
 
-    write!(out_file, "{}\n", solution.schedules.len()).unwrap();
+    let mut count = 0;
+    for lps in solution.schedules.iter() {
+        if lps.len() > 0 {
+            count += 1;
+        }
+    }
+
+    write!(out_file, "{}\n", count).unwrap();
     for (intersection, lps) in solution.schedules.iter().enumerate() {
-        write!(out_file, "{}\n", intersection).unwrap();
-        write!(out_file, "{}\n", lps.len()).unwrap();
-        for lp in lps.iter() {
-            write!(out_file, "{} {}\n", &problem.streets[lp.street as usize].name, lp.period).unwrap();
+        if lps.len() > 0 {
+            write!(out_file, "{}\n", intersection).unwrap();
+            write!(out_file, "{}\n", lps.len()).unwrap();
+            for lp in lps.iter() {
+                write!(out_file, "{} {}\n", &problem.streets[lp.street as usize].name, lp.period).unwrap();
+            }
         }
     }
 }
